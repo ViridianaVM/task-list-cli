@@ -6,12 +6,7 @@ class TaskList:
         self.url = url
         self.selected_task = selected_task
     
-    def create_task(
-        self, 
-        title="Default Task",
-        description="Default Description",
-        completed_at=None
-        ):
+    def create_task(self,title="Default Task",description="Default Description",completed_at=None):
         query_params = {
             "title": title,
             "description": description,
@@ -40,16 +35,13 @@ class TaskList:
         response = requests.get(self.url+f"/tasks/{id}")
         return response.json()
 
-    def update_task(
-        self, 
-        title=None,
-        description=None,
-        completed_at=None
-        ):
+    def update_task(self,title=None,description=None,completed_at=None):
         if not title:
             title = self.selected_task["title"]
         if not description:
             description = self.selected_task["description"]
+        if not completed_at:
+            completed_at = self.selected_at["completed_at"]
 
         query_params = {
         "title": title,
