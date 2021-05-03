@@ -38,7 +38,6 @@ while play==True:
         print("You must select a task before updating it, deleting it, marking it complete, or marking it incomplete.")
         choice = "3"
 
-
     if choice=='1':
         print("Tasks:")
         print("**************************")
@@ -50,10 +49,38 @@ while play==True:
         description=input("What is the description of your task? ")
         new_task = task_list.create_task(title=title, description=description)
         print("New task:", new_task)
+    elif choice=='3':
+        select_by = input("Would you like to select by title or id? ")
+        if select_by=="title":
+            title = input("Which task title would you like to select? ")
+            task_list.get_task(title=title)
+        elif select_by=="id":
+            id = input("Which task id would you like to select? ")
+            task_list.get_task(id=id)
+        else:
+            print("Could not select.")
+        print("Selected task: ", task_list.selected_task)
+    elif choice=='4':
+        print(f"Great! Let's update the task: {task_list.selected_task}")
+        title=input("What is the new title of your task? ")
+        description=input("What is the new description of your task? ")
+        updated_task = task_list.update_task(title=title, description=description)
+        print("Updated task:", updated_task)
+
+    elif choice=='5':
+        task_list.delete_task()
+        print(task_list.list_tasks())
+    elif choice=='6':
+        response = task_list.mark_complete()
+        print("Complete task: ", response)
+    elif choice=='7':
+        response = task_list.mark_incomplete()
+        print("Incomplete task: ", response)
     elif choice=='8':
         for task in task_list.list_tasks():
             task_list.get_task(id=task['id'])
             task_list.delete_task()
+        print("Deleted all tasks.")
     elif choice=='9':
         list_choices()
     elif choice=='10':

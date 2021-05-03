@@ -41,15 +41,15 @@ class TaskList:
         if not description:
             description = self.selected_task["description"]
         if not completed_at:
-            completed_at = self.selected_at["completed_at"]
+            completed_at = self.selected_task["is_complete"]
 
         query_params = {
         "title": title,
-        "descirption": description,
+        "description": description,
         "completed_at": completed_at
         }
         response = requests.put(
-            self.url+f"/tasks/{self.selected_task.id}",
+            self.url+f"/tasks/{self.selected_task['id']}",
             json=query_params
             )
         return response.json()
