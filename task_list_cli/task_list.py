@@ -52,16 +52,16 @@ class TaskList:
             self.url+f"/tasks/{self.selected_task.id}",
             json=query_params
             )
-        return response
+        return response.json()
 
     def delete_task(self):
         response = requests.delete(self.url+f"/tasks/{self.selected_task['id']}")
-        return response
+        return response.json()
     
     def mark_complete(self):
         response = requests.patch(self.url+f"/tasks/{self.selected_task['id']}/mark_complete")
-        return response
+        return response.json()
 
     def mark_incomplete(self):
         response = requests.patch(self.url+f"/tasks/{self.selected_task['id']}/mark_incomplete")
-        return response
+        return response.json()
