@@ -40,8 +40,8 @@ class TaskList:
             title = self.selected_task["title"]
         if not description:
             description = self.selected_task["description"]
-        if not completed_at:
-            completed_at = self.selected_task["is_complete"]
+        # if not completed_at:
+        #     completed_at = self.selected_task["is_complete"]
 
         query_params = {
         "title": title,
@@ -56,6 +56,7 @@ class TaskList:
 
     def delete_task(self):
         response = requests.delete(self.url+f"/tasks/{self.selected_task['id']}")
+        self.selected_task = None
         return response.json()
     
     def mark_complete(self):

@@ -25,7 +25,7 @@ def list_choices():
 choice = None
 valid_choices = options.keys()
 
-task_list = TaskList()
+task_list = TaskList(url="https://beccas-task-list-c15.herokuapp.com/")
 play = True
 list_choices()
 
@@ -56,10 +56,15 @@ while play==True:
             task_list.get_task(title=title)
         elif select_by=="id":
             id = input("Which task id would you like to select? ")
-            task_list.get_task(id=id)
+            if isnumeric(id):
+                id = int(id)
+                task_list.get_task(id=id)
         else:
-            print("Could not select.")
-        print("Selected task: ", task_list.selected_task)
+            print("Could not select. Please enter id or title.")
+        
+        if task_list.selected_task:
+            print("Selected task: ", task_list.selected_task)
+
     elif choice=='4':
         print(f"Great! Let's update the task: {task_list.selected_task}")
         title=input("What is the new title of your task? ")
@@ -89,19 +94,3 @@ while play==True:
 
     choice = None
     print("**************************")
-
-# print("*******")
-# print("Select task with title 'learn flask' ")
-# becca.get_task(title="learn flask")
-
-# print("*******")
-# print("Selected Task: ",becca.selected_task)
-
-
-# print("*******")
-# print("Delete Selected Task")
-
-# becca.delete_task()
-
-# print("*******")
-# print("All tasks: ", becca.list_tasks())
