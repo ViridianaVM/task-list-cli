@@ -1,4 +1,4 @@
-from task_list_cli.task_list import TaskList
+from task_list import TaskList
 
 def list_options():
 
