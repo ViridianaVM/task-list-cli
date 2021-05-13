@@ -51,7 +51,7 @@ class TaskList:
             json=query_params
             )
         print("response:", response)
-        self.selected_task = None
+        self.selected_task = response.json()["task"]
         return response.json()
 
     def delete_task(self):
@@ -61,12 +61,19 @@ class TaskList:
     
     def mark_complete(self):
         response = requests.patch(self.url+f"/tasks/{self.selected_task['id']}/mark_complete")
-        self.selected_task = None
+        self.selected_task = response.json()["task"]
         return response.json()
 
     def mark_incomplete(self):
         response = requests.patch(self.url+f"/tasks/{self.selected_task['id']}/mark_incomplete")
-        self.selected_task = None
+        self.selected_task = response.json()["task"]
         return response.json()
+
+    def print_selected(self):
+        if self.selected_task:
+            print(f"Task with id {self.selected_task['id']} is currently selected")
+        else:
+            print("There is no selected task.")
+
 
         
