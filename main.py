@@ -1,5 +1,6 @@
 from task_list import TaskList
 
+
 def list_options():
 
     options = {
@@ -44,7 +45,7 @@ def print_stars():
 def run_cli():
 
     #initialize task_list
-    task_list = TaskList(url="https://beccas-task-list-c15.herokuapp.com/")
+    task_list = TaskList()
     
     # print choices
     options = list_options()
@@ -105,6 +106,7 @@ def run_cli():
             list_options()
         elif choice=='10':
             play=False
+
   
         print_stars()
 

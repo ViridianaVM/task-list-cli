@@ -43,13 +43,15 @@ class TaskList:
 
         query_params = {
         "title": title,
-        "description": description,
-        "completed_at": self.selected_task.completed_at
+        "description": description
+        #"completed_at": self.selected_task["is_complete"]
         }
         response = requests.put(
             self.url+f"/tasks/{self.selected_task['id']}",
             json=query_params
             )
+        print("response:", response)
+        self.selected_task = None
         return response.json()
 
     def delete_task(self):
@@ -59,8 +61,12 @@ class TaskList:
     
     def mark_complete(self):
         response = requests.patch(self.url+f"/tasks/{self.selected_task['id']}/mark_complete")
+        self.selected_task = None
         return response.json()
 
     def mark_incomplete(self):
         response = requests.patch(self.url+f"/tasks/{self.selected_task['id']}/mark_incomplete")
+        self.selected_task = None
         return response.json()
+
+        
