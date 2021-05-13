@@ -71,9 +71,7 @@ class TaskList:
 
     def print_selected(self):
         if self.selected_task:
-            print(f"Task with id {self.selected_task['id']} is currently selected")
-        else:
-            print("There is no selected task.")
+            print(f"Task with id {self.selected_task['id']} is currently selected\n")
 
 
         

@@ -1,5 +1,8 @@
 from task_list import TaskList
 
+def print_stars():
+    print("\n**************************\n")
+
 def list_options():
 
     options = {
@@ -15,12 +18,16 @@ def list_options():
         "10": "Quit"
         }
 
-    print("What would you like to do?")
-    print("**************************")
+    print_stars()
+    print("Welcome to the Task List CLI")
+    print("These are the actions you can perform")
+    print_stars()
+    
     for choice_num in options:
         print(f"Option {choice_num}. {options[choice_num]}")
 
-    print("You must select a task before updating it, deleting it, marking it complete, or marking it incomplete.")
+    print_stars()
+
     return options
 
 
@@ -39,11 +46,7 @@ def make_choice(options, task_list):
     
     return choice
 
-def print_stars():
-    print("**************************")
-
-
-def run_cli():
+def run_cli(play=True):
 
     #initialize task_list
     task_list = TaskList(url="https://beccas-task-list-c15.herokuapp.com/")
@@ -51,7 +54,6 @@ def run_cli():
     # print choices
     options = list_options()
 
-    play = True
     while play==True:
 
         # get input and validate
@@ -60,7 +62,6 @@ def run_cli():
         task_list.print_selected()
 
         if choice=='1':
-            print("Tasks:")
             print_stars()
             for task in task_list.list_tasks():
                 print(task)
@@ -69,7 +70,10 @@ def run_cli():
             title=input("What is the title of your task? ")
             description=input("What is the description of your task? ")
             response = task_list.create_task(title=title, description=description)
+
+            print_stars()
             print("New task:", response["task"])
+
         elif choice=='3':
             select_by = input("Would you like to select by? Enter title or id: ")
             if select_by=="title":
@@ -84,34 +88,51 @@ def run_cli():
                 print("Could not select. Please enter id or title.")
             
             if task_list.selected_task:
+                print_stars()
                 print("Selected task: ", task_list.selected_task)
+
         elif choice=='4':
             print(f"Great! Let's update the task: {task_list.selected_task}")
             title=input("What is the new title of your task? ")
             description=input("What is the new description of your task? ")
             response = task_list.update_task(title=title, description=description)
+
+            print_stars()
             print("Updated task:", response["task"])
         elif choice=='5':
             task_list.delete_task()
+
+            print_stars()
             print("Task has been deleted.")
+
+            print_stars()
             print(task_list.list_tasks())
+
         elif choice=='6':
             response = task_list.mark_complete()
+
+            print_stars()
             print("Completed task: ", response["task"])
+
         elif choice=='7':
             response = task_list.mark_incomplete()
+
+            print_stars()
             print("Incomplete task: ", response["task"])
+
         elif choice=='8':
             for task in task_list.list_tasks():
                 task_list.get_task(id=task['id'])
                 task_list.delete_task()
+
+            print_stars()
             print("Deleted all tasks.")
         elif choice=='9':
             list_options()
         elif choice=='10':
             play=False
+            print("\nThanks for using the Task List CLI!")
 
-  
         print_stars()
 
 run_cli()
