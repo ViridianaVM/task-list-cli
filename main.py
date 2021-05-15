@@ -49,7 +49,7 @@ def make_choice(options, task_list):
 def run_cli(play=True):
 
     #initialize task_list
-    task_list = TaskList(url="https://beccas-task-list-c15.herokuapp.com/")
+    task_list = TaskList(url="https://viris-task-list-app.herokuapp.com/")
     
     # print choices
     options = list_options()
